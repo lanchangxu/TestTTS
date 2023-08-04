@@ -1,8 +1,10 @@
 package org.self;
 
-import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
+import org.self.enity.SelfPoint;
+import org.self.utils.MouseUtils;
+import org.self.utils.ScreenUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,13 +16,24 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        run();
+        getPosition();
+        ScreenUtils.soutScreenInfo();
 //        test();
     }
+
     private static void test() {
         JFrame frame = new JFrame("设置窗口大小示例");
-        frame.setSize(100,100);
+        frame.setSize(100, 100);
         frame.setVisible(true);
+    }
+
+    private static void getPosition() {
+        MouseUtils mouseUtils = new MouseUtils();
+        SelfPoint point = mouseUtils.getMousePosition();
+        System.out.println(point.getX());
+        System.out.println(point.getY());
+        //463,207
+        //997,558
     }
 
     private static void run() {
@@ -63,7 +76,7 @@ public class Main {
 
         assert robot != null;
         BufferedImage buf = robot.createScreenCapture(dimensionsOfWindow.toRectangle());
-        File output = new File("www.png");
+        File output = new File("screen//www.png");
         try {
             ImageIO.write(buf, "png", output);
         } catch (IOException e) {
