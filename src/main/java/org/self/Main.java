@@ -12,7 +12,7 @@ public class Main {
         System.out.println("1");
 //        WinDef.HWND hwnd = User32.INSTANCE.FindWindow(null, "窗口标题");
 //        if (hwnd != null) {
-//            // 获取窗口大小
+            // 获取窗口大小
 //            WinDef.RECT rect = new WinDef.RECT();
 //            User32.INSTANCE.GetWindowRect(hwnd, rect);
 //            int width = rect.right - rect.left;
