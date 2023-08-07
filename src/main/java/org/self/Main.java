@@ -18,6 +18,9 @@ public class Main {
         System.out.println("Hello world!");
         getPosition();
         ScreenUtils.soutScreenInfo();
+        System.out.println("操作系统的名称：" + System.getProperty("os.name"));
+        System.out.println("操作系统的版本号：" + System.getProperty("os.version"));
+        System.out.println("操作系统的架构：" + System.getProperty("os.arch"));
 //        test();
     }
 
@@ -28,8 +31,7 @@ public class Main {
     }
 
     private static void getPosition() {
-        MouseUtils mouseUtils = new MouseUtils();
-        SelfPoint point = mouseUtils.getMousePosition();
+        SelfPoint point = MouseUtils.getMousePosition();
         System.out.println(point.getX());
         System.out.println(point.getY());
         //463,207
