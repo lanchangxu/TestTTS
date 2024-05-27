@@ -1,33 +1,42 @@
 package org.self;
 
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 import org.self.enity.SelfPoint;
+import org.self.service.MemoryManager;
+import org.self.service.impl.MemoryManagerImpl;
+import org.self.utils.WindowsUtils;
 import org.self.utils.MouseUtils;
-import org.self.utils.ScreenUtils;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("Hello world!");
-        getPosition();
-        ScreenUtils.soutScreenInfo();
-        System.out.println("操作系统的名称：" + System.getProperty("os.name"));
-        System.out.println("操作系统的版本号：" + System.getProperty("os.version"));
-        System.out.println("操作系统的架构：" + System.getProperty("os.arch"));
-//        test();
+//        getPosition();
+//        ScreenUtils.soutScreenInfo();
+//        System.out.println("操作系统的名称：" + System.getProperty("os.name"));
+//        System.out.println("操作系统的版本号：" + System.getProperty("os.version"));
+//        System.out.println("操作系统的架构：" + System.getProperty("os.arch"));
+        WinDef.HWND hwnd = User32.INSTANCE.FindWindow(null, "Shop Titans");
+        WinDef.HWND hwnd1 = User32.INSTANCE.GetWindow(hwnd, null);
+        test();
     }
 
-    private static void test() {
-        JFrame frame = new JFrame("设置窗口大小示例");
-        frame.setSize(100, 100);
-        frame.setVisible(true);
+    private static void test() throws IOException {
+//        JFrame frame = new JFrame("设置窗口大小示例");
+//        frame.setSize(100, 100);
+//        frame.setVisible(true);
+        MemoryManager memoryManager = new MemoryManagerImpl();
+        //打开进程名：PlantsVsZombies.exe
+        int process = memoryManager.OpenProcess("ShopTitan.exe");
+
     }
 
     private static void getPosition() {
