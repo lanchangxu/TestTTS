@@ -10,8 +10,6 @@ public interface MemoryManager extends Library {
 
     int OpenProcess(String processName) throws IOException;
 
-    int getPidByName(String processName) throws IOException;
-
     void CloseHandle(int processId);
 
     int ReadIntProcessMemory(int processId, int address);

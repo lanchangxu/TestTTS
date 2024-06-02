@@ -1,16 +1,32 @@
 package org.self.utils;
 
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.Kernel32;
-import com.sun.jna.platform.win32.WinNT;
-import com.sun.jna.win32.StdCallLibrary;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class WindowsUtils {
 
-
-    public static boolean getProcessIdByProcessName(String processName) {
-//        WinNT.HANDLE handle = Kernel32.INSTANCE.CreateToolhelp32Snapshot()
-        return true;
+    /**
+     * 根据进程明获取PID
+     *
+     * @param processName 进程名称
+     * @return PID
+     */
+    public static int getPidByName(String processName) throws IOException {
+        Process process = Runtime.getRuntime().exec("TASKLIST /FI \"IMAGENAME eq " + processName + "\"");
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(
+                        new BufferedInputStream(process.getInputStream()), StandardCharsets.UTF_8));
+        String str;
+        int pid = -1;
+        while ((str = bufferedReader.readLine()) != null) {
+            if (str.contains(processName)) {
+                pid = Integer.parseInt(str.substring(processName.length(), str.indexOf("Console")).trim());
+            }
+        }
+        return pid;
     }
 
 }

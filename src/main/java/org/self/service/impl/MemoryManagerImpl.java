@@ -4,6 +4,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import org.self.service.MemoryManager;
+import org.self.utils.WindowsUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -30,28 +31,12 @@ public class MemoryManagerImpl implements MemoryManager {
     }
 
     public int OpenProcess(String processName) throws IOException {
-        int pid = getPidByName(processName);
+        int pid = WindowsUtils.getPidByName(processName);
         if (pid != -1) {
             return this.OpenProcess(pid);
         } else {
             return -1;
         }
-    }
-
-    @Override
-    public int getPidByName(String processName) throws IOException {
-        Process process = Runtime.getRuntime().exec("TASKLIST /FI \"IMAGENAME eq " + processName + "\"");
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(
-                        new BufferedInputStream(process.getInputStream()), StandardCharsets.UTF_8));
-        String str;
-        int pid = -1;
-        while ((str = bufferedReader.readLine()) != null) {
-            if (str.contains(processName)) {
-                pid = Integer.parseInt(str.substring(processName.length(), str.indexOf("Console")).trim());
-            }
-        }
-        return pid;
     }
 
     public void CloseHandle(int processId) {
