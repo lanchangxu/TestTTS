@@ -19,9 +19,8 @@ import static com.sun.jna.platform.win32.WinUser.WH_KEYBOARD_LL;
 
 public class Main {
 
-    ‘
-
     public static void main(String[] args) throws Exception {
+
         System.out.println("Hello world!");
 
         Robot robot = new Robot();
@@ -45,7 +44,7 @@ public class Main {
 //        };
 //
 //        // 设置键盘钩子
-        int hHook = User32.INSTANCE.SetWindowsHookEx(13, hookProc, Pointer.createConstant(targetPid),targetPid);
+//        int hHook = User32.INSTANCE.SetWindowsHookEx(13, hookProc, Pointer.createConstant(targetPid),targetPid);
 //        if (hHook == 0) {
 //            System.out.println("Failed to set hook");
 //            return;
